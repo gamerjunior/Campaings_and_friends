@@ -29,10 +29,10 @@ fun CardCampania(
     campania: Campania,
 ){
     Card(
-        modifier = modifier
+        modifier = modifier.size(370.dp)
     ) {
         Column(
-            Modifier.fillMaxSize().padding(10.dp).height(200.dp).align(Alignment.CenterHorizontally), verticalArrangement = Arrangement.spacedBy(10.dp)
+            Modifier.fillMaxSize().padding(10.dp).align(Alignment.CenterHorizontally), verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Image(
                 modifier = Modifier.align(Alignment.CenterHorizontally).size(64.dp).weight(0.3f),
@@ -84,6 +84,7 @@ private fun CardCampaniaPreview(){
             Njugadores = 2,
             jugadores = arrayListOf("zaida","leo") ,
             anotaciones = arrayListOf("primera sesion:nada","segunda sesion:nada"),
-            Nsesiones = 3
+            Nsesiones = 3,
+            id = 1
         ))
 }

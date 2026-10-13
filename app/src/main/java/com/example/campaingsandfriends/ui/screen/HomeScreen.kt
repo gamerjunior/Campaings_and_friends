@@ -1,10 +1,8 @@
 package com.example.campaingsandfriends.ui.screen
 
-import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,7 +21,7 @@ import com.example.campaingsandfriends.ui.components.CardCampania
 
 
 @Composable
-fun MainScreen(
+fun HomeScreen(
     modifier: Modifier,
     campanias: List<Campania>
 ){
@@ -85,7 +83,7 @@ fun CampaniaListPreview(){
 @Preview(showBackground = true)
 @Composable
 fun MainScreenPreview(){
-    MainScreen(
+    HomeScreen(
         Modifier,
         listOf(Campania(
             nombre = "golpe de los dragones de oro",

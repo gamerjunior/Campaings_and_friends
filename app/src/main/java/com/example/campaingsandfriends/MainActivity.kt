@@ -10,7 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.campaingsandfriends.model.Campania
-import com.example.campaingsandfriends.ui.screen.MainScreen
+import com.example.campaingsandfriends.ui.screen.HomeScreen
 import com.example.campaingsandfriends.ui.theme.CampaingsAndFriendsTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,8 +19,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CampaingsAndFriendsTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainScreen(
+                Scaffold(modifier = Modifier.fillMaxSize(),
+                        topBar = {MyAppTopBar(navController = navController)},
+                        bottomBar = {MyAppBottomBar(navController = navController)}
+                ) { innerPadding ->
+                    HomeScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding)
@@ -32,7 +35,8 @@ class MainActivity : ComponentActivity() {
                                 Njugadores = 3,
                                 jugadores = arrayListOf("saul","carlos","josevi"),
                                 anotaciones = arrayListOf("nada","nada dos"),
-                                Nsesiones = 3
+                                Nsesiones = 3,
+                                id = 1
                             ),
                             Campania(
                                     nombre = "Nunca brilla el sol",
@@ -40,7 +44,8 @@ class MainActivity : ComponentActivity() {
                                     Njugadores = 5,
                                     jugadores = arrayListOf("jose","marcos","edu","mi padre","lola lolita"),
                                     anotaciones = arrayListOf("nada","nada dos"),
-                                    Nsesiones = 8
+                                    Nsesiones = 8 ,
+                                    id = 2
                             ),
                             Campania(
                                 nombre = "buscarle novia al carlos",
@@ -48,7 +53,8 @@ class MainActivity : ComponentActivity() {
                                 Njugadores = 4,
                                 jugadores = arrayListOf("josevi","adrian","paco","abuelo carlos"),
                                 anotaciones = arrayListOf("nada","nada dos"),
-                                Nsesiones = 5
+                                Nsesiones = 5,
+                                id = 3
                             ),
                             Campania(
                                 nombre = "la herencia de lord sebastian",
@@ -56,7 +62,8 @@ class MainActivity : ComponentActivity() {
                                 Njugadores = 1,
                                 jugadores = arrayListOf("zaida"),
                                 anotaciones = arrayListOf("nada","nada dos"),
-                                Nsesiones = 3
+                                Nsesiones = 3,
+                                id = 4
                             ),
 
                         )
