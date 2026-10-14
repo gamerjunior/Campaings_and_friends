@@ -23,7 +23,8 @@ import com.example.campaingsandfriends.ui.components.CardCampania
 @Composable
 fun HomeScreen(
     modifier: Modifier,
-    campanias: List<Campania>
+    campanias: List<Campania>,
+    onCampaniaClick: (Long) -> Unit
 ){
     Column(
         modifier = modifier.fillMaxSize(),
@@ -72,9 +73,10 @@ fun CampaniaListPreview(){
                 nombre = "golpe de los dragones de oro",
                 master = "Saúl",
                 Njugadores = 5,
-                jugadores = arrayListOf("zaida","leo","leo") ,
-                anotaciones = arrayListOf("sesion 1","sesion 2","sesion 3"),
-                Nsesiones = 2
+                jugadores = arrayListOf("zaida", "leo", "leo"),
+                anotaciones = arrayListOf("sesion 1", "sesion 2", "sesion 3"),
+                Nsesiones = 2,
+                id = 1
             )
         )
     )
@@ -91,7 +93,9 @@ fun MainScreenPreview(){
             Njugadores = 5,
             jugadores = arrayListOf("zaida","leo","leo") ,
             anotaciones = arrayListOf("sesion 1","sesion 2","sesion 3"),
-            Nsesiones = 2
-        ))
+            Nsesiones = 2,
+            id = 2
+        )),
+        onCampaniaClick = {}
     )
 }
