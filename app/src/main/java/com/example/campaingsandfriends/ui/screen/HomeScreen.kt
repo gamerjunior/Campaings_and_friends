@@ -24,7 +24,7 @@ import com.example.campaingsandfriends.ui.components.CardCampania
 fun HomeScreen(
     modifier: Modifier,
     campanias: List<Campania>,
-    onCampaniaClick: (Long) -> Unit
+    onCampaniaListClick: (Long) -> Unit
 ){
     Column(
         modifier = modifier.fillMaxSize(),
@@ -39,7 +39,8 @@ fun HomeScreen(
                 .weight(1f)
                 .padding(8.dp)
                 ,
-            campanias = campanias
+            campanias = campanias,
+            onCampaniaClick = {onCampaniaListClick(it)}
         )
 
     }
@@ -47,7 +48,8 @@ fun HomeScreen(
 @Composable
 fun CampaniaList(
     modifier: Modifier,
-    campanias: List<Campania>
+    campanias: List<Campania>,
+    onCampaniaClick: (Long) -> Unit
 ){
     LazyRow(
         modifier = modifier,
@@ -57,7 +59,8 @@ fun CampaniaList(
         items(20){
             CardCampania(
                 campania = campanias.random(),
-                modifier = Modifier.fillMaxWidth().size(370.dp)
+                modifier = Modifier.fillMaxWidth().size(370.dp),
+                onClick = {onCampaniaClick(it)}
             )
         }
     }
@@ -78,7 +81,8 @@ fun CampaniaListPreview(){
                 Nsesiones = 2,
                 id = 1
             )
-        )
+        ),
+        onCampaniaClick = {}
     )
 }
 
@@ -96,6 +100,6 @@ fun MainScreenPreview(){
             Nsesiones = 2,
             id = 2
         )),
-        onCampaniaClick = {}
+        onCampaniaListClick = {}
     )
 }

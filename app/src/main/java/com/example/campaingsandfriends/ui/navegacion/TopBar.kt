@@ -24,7 +24,14 @@ fun TopBar(
         title = {
             if (currentRoute != null) {
                 Text(text = currentRoute)
-            }else{
+            }
+            if(currentRoute == Rutas.DETALLECAMPANIA){
+                Text(text="Detalle de la campaña")
+            }
+            if(currentRoute == Rutas.DETALLEPERSONAJE){
+                Text(text="Detalle del personaje")
+            }
+            else{
                 Text(text = "")
             }
         },

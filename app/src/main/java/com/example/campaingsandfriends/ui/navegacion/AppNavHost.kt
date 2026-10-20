@@ -18,14 +18,14 @@ import com.example.campaingsandfriends.ui.screen.PerfilScreen
 object Rutas{
 
     const val HOME = "home"
-    const val DETALLEPERSONAJE = "detallePersonaje/{personajeID}"
+    const val DETALLEPERSONAJE = "detallePersonaje/{personajeId}"
     const val PERFIL = "perfil"
-    const val DETALLECAMPANIA = "detalleCampania/{campaniaID}"
+    const val DETALLECAMPANIA = "detalleCampania/{campaniaId}"
     const val DADOS = "dados"
 
-    fun detalleCampaniaConId(campaniaID: Long) = "detalleCampania/$campaniaID"
+    fun detalleCampaniaConId(campaniaId: Long) = "detalleCampania/$campaniaId"
 
-    fun detallePersonajeConId(personajeID: Long) = "detallePersonaje/$personajeID"
+    fun detallePersonajeConId(personajeId: Long) = "detallePersonaje/$personajeId"
 
 }
 
@@ -83,7 +83,7 @@ fun AppNavHost(
             HomeScreen(
                 modifier = modifier,
                 campanias = listacampanias,
-                onCampaniaClick = {navController.navigate(Rutas.detalleCampaniaConId(it))
+                onCampaniaListClick = {navController.navigate(Rutas.detalleCampaniaConId(it))
                 }
             )
         }

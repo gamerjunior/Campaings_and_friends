@@ -27,12 +27,15 @@ import com.example.campaingsandfriends.model.Campania
 fun CardCampania(
     modifier: Modifier,
     campania: Campania,
+    onClick: (Long) -> Unit
 ){
     Card(
-        modifier = modifier.size(370.dp)
+        modifier = modifier.size(370.dp),
+        onClick = { onClick(campania.id) }
     ) {
         Column(
-            Modifier.fillMaxSize().padding(10.dp).align(Alignment.CenterHorizontally), verticalArrangement = Arrangement.spacedBy(10.dp)
+            Modifier.fillMaxSize().padding(10.dp).align(Alignment.CenterHorizontally), verticalArrangement = Arrangement.spacedBy(10.dp),
+
         ) {
             Image(
                 modifier = Modifier.align(Alignment.CenterHorizontally).size(64.dp).weight(0.3f),
@@ -86,5 +89,6 @@ private fun CardCampaniaPreview(){
             anotaciones = arrayListOf("primera sesion:nada","segunda sesion:nada"),
             Nsesiones = 3,
             id = 1
-        ))
+        ),
+        onClick = {})
 }
