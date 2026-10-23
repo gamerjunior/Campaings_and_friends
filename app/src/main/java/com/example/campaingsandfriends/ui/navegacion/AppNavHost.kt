@@ -81,7 +81,7 @@ fun AppNavHost(
     ) {
         composable(Rutas.HOME) {
             HomeScreen(
-                modifier = modifier,
+                modifier = Modifier,
                 campanias = listacampanias,
                 onCampaniaListClick = {navController.navigate(Rutas.detalleCampaniaConId(it))
                 }
@@ -91,14 +91,14 @@ fun AppNavHost(
             arguments = listOf(navArgument("campaniaId") { type = NavType.LongType })
         ) {
             DetalleCampaniaScreen(
-                modifier = modifier,
+                modifier = Modifier,
                 campania = buscarCampania(it.arguments?.getLong("campaniaId")!!)
             )
         }
 
         composable(Rutas.PERFIL) {
             PerfilScreen(
-                modifier = modifier,
+                modifier = Modifier,
                 onPersonajeClick = { navController.navigate(Rutas.detallePersonajeConId(it))
                 }
             )
@@ -106,14 +106,14 @@ fun AppNavHost(
 
         composable(Rutas.DADOS) {
             DadoScreen(
-                modifier = modifier
+                modifier = Modifier
             )
         }
         composable(Rutas.DETALLEPERSONAJE,
             arguments = listOf(navArgument("personajeId") { type = NavType.LongType })
         ) {
             DetallePersonajeScreen(
-                modifier = modifier,
+                modifier = Modifier,
                 personaje = buscarPersonaje(it.arguments?.getLong("personajeId")!!)
             )
         }
