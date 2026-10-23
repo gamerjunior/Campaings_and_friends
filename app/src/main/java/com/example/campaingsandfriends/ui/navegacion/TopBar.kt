@@ -22,14 +22,20 @@ fun TopBar(
 
     TopAppBar(
         title = {
-            if (currentRoute != null) {
-                Text(text = currentRoute)
+            if (currentRoute == Rutas.HOME) {
+                Text(text = "Home")
             }
-            if(currentRoute == Rutas.DETALLECAMPANIA){
+            else if(currentRoute == Rutas.DETALLECAMPANIA){
                 Text(text="Detalle de la campaña")
             }
-            if(currentRoute == Rutas.DETALLEPERSONAJE){
+            else if(currentRoute == Rutas.DETALLEPERSONAJE){
                 Text(text="Detalle del personaje")
+            }
+            else if(currentRoute == Rutas.PERFIL){
+                Text(text="Perfil")
+            }
+            else if(currentRoute == Rutas.DADOS){
+                Text(text="Dados")
             }
             else{
                 Text(text = "")

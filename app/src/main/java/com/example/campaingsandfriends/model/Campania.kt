@@ -7,5 +7,6 @@ data class Campania(
     val jugadores: ArrayList<String>,
     val anotaciones: ArrayList<String>,
     val Nsesiones: Int,
+
     val id: Long
     )
