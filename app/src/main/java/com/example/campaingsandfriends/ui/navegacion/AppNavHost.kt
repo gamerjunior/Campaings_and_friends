@@ -18,6 +18,7 @@ import com.example.campaingsandfriends.ui.screen.PerfilScreen
 object Rutas{
 
     const val HOME = "home"
+
     const val DETALLEPERSONAJE = "detallePersonaje/{personajeId}"
     const val PERFIL = "perfil"
     const val DETALLECAMPANIA = "detalleCampania/{campaniaId}"
