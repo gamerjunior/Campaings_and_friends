@@ -13,16 +13,17 @@ import com.example.campaingsandfriends.ui.screen.DadoScreen
 import com.example.campaingsandfriends.ui.screen.DetalleCampaniaScreen
 import com.example.campaingsandfriends.ui.screen.DetallePersonajeScreen
 import com.example.campaingsandfriends.ui.screen.HomeScreen
+import com.example.campaingsandfriends.ui.screen.PersonajesScreen
 import com.example.campaingsandfriends.ui.screen.PerfilScreen
 
 object Rutas{
 
     const val HOME = "home"
-
     const val DETALLEPERSONAJE = "detallePersonaje/{personajeId}"
     const val PERFIL = "perfil"
     const val DETALLECAMPANIA = "detalleCampania/{campaniaId}"
     const val DADOS = "dados"
+    const val PERSONAJES = "personajes"
 
     fun detalleCampaniaConId(campaniaId: Long) = "detalleCampania/$campaniaId"
 
@@ -75,6 +76,42 @@ fun AppNavHost(
         )
     )
 
+    val listapersonajes = listOf(
+        Personaje(
+            nombre = "idril",
+            raza = "semielfo",
+            clase = "picaro",
+            nivel = 2,
+            vida = 14,
+            id = 1
+        ),
+        Personaje(
+            nombre = "manolo",
+            raza = "orco",
+            clase = "guerrero",
+            nivel = 2,
+            vida = 20,
+            id = 2
+        ),
+        Personaje(
+            nombre = "saúl",
+            raza = "humano",
+            clase = "guerrero",
+            nivel = 10,
+            vida = 4,
+            id = 3
+        ),
+        Personaje(
+            nombre = "brudom",
+            raza = "draconido",
+            clase = "explorador",
+            nivel = 6,
+            vida = 10,
+            id = 4
+        )
+
+    )
+
     NavHost(
         navController = navController,
         startDestination = Rutas.HOME,
@@ -97,9 +134,10 @@ fun AppNavHost(
             )
         }
 
-        composable(Rutas.PERFIL) {
-            PerfilScreen(
+        composable(Rutas.PERSONAJES) {
+            PersonajesScreen(
                 modifier = Modifier,
+                personajes = listapersonajes,
                 onPersonajeClick = { navController.navigate(Rutas.detallePersonajeConId(it))
                 }
             )
@@ -116,6 +154,11 @@ fun AppNavHost(
             DetallePersonajeScreen(
                 modifier = Modifier,
                 personaje = buscarPersonaje(it.arguments?.getLong("personajeId")!!)
+            )
+        }
+        composable(Rutas.PERFIL) {
+            PerfilScreen(
+                modifier = Modifier
             )
         }
     }

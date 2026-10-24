@@ -50,7 +50,7 @@ fun DetalleCampaniaScreen(
         Text(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp).align(Alignment.CenterHorizontally), text = "Anotaciones")
 
         anotacionesList(
-            modifier = Modifier,
+            modifier = Modifier.weight(1f),
             anotaciones = campania.anotaciones
         )
     }
@@ -81,8 +81,8 @@ fun anotacion(texto: String){
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(150.dp)
             .padding(horizontal = 16.dp, vertical = 8.dp)
+            .height(150.dp)
             .clip(RoundedCornerShape(5.dp))
             .border(
                 width = 1.dp,
@@ -101,7 +101,8 @@ fun anotacionesList(
     anotaciones: List<String>){
 
     LazyColumn(
-        modifier = modifier
+        modifier = modifier,
+
     ){
         items(anotaciones.size){
             anotacion(anotaciones[it])

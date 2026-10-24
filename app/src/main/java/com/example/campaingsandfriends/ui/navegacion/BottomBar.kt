@@ -40,6 +40,12 @@ fun BottomBar (
             label = { Text("perfil")}
         )
 
+        NavigationBarItem(
+            selected = currentRoute == Rutas.PERSONAJES,
+            onClick = { navController.navigate(Rutas.PERSONAJES) },
+            icon = { Icon(painter = painterResource(R.drawable.character), contentDescription = "Personajes") },
+            label = { Text("personajes")}
+        )
 
     }
 }
