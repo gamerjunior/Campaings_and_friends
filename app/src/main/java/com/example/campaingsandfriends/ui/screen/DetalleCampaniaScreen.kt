@@ -42,10 +42,10 @@ fun DetalleCampaniaScreen(
             contentDescription = "Imagen campaña"
         )
 
-        DatoCampania(campania.nombre)
-        DatoCampania(campania.master)
-        DatoCampania(campania.Njugadores.toString())
-        DatoCampania(campania.Nsesiones.toString())
+        DatoCampania("Campaña: ${campania.nombre}")
+        DatoCampania("Master: ${campania.master}")
+        DatoCampania("Numero de jugadores: ${campania.Njugadores.toString()}")
+        DatoCampania("Numero de sesiones: ${campania.Nsesiones.toString()}")
 
         Text(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp).align(Alignment.CenterHorizontally), text = "Anotaciones")
 

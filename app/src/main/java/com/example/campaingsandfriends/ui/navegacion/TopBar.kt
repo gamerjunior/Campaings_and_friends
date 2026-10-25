@@ -37,6 +37,9 @@ fun TopBar(
             else if(currentRoute == Rutas.DADOS){
                 Text(text="Dados")
             }
+            else if(currentRoute == Rutas.PERSONAJES){
+                Text(text="Personajes")
+            }
             else{
                 Text(text = "")
             }
