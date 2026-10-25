@@ -70,6 +70,10 @@ fun DetallePersonajeScreen(
             )
         }
 
+        Text(text = "Estadisticas:",
+            fontSize = 30.sp,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
+
         Row(
             modifier = Modifier.fillMaxWidth()
         ){
@@ -77,6 +81,7 @@ fun DetallePersonajeScreen(
             estadisticas(modifier.weight(0.3f))
             estadisticas(modifier.weight(0.3f))
         }
+
         Row(
             modifier = Modifier.fillMaxWidth()
         ){
