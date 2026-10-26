@@ -8,6 +8,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import com.example.campaingsandfriends.R
 
@@ -15,7 +16,9 @@ import com.example.campaingsandfriends.R
 fun BottomBar (
     navController: NavHostController,
 ){
-    NavigationBar(){
+    NavigationBar(
+        containerColor = Color(0xFF94e1bc)
+    ){
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
         
