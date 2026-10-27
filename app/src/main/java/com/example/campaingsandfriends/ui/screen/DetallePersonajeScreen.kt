@@ -16,6 +16,7 @@ import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,9 +30,14 @@ import com.example.campaingsandfriends.model.Personaje
 @Composable
 fun DetallePersonajeScreen(
     modifier: Modifier,
-    personaje: Personaje
+    personaje: Personaje,
+    onPersonajeCargado: (String) -> Unit = {}
 
 ) {
+    LaunchedEffect(personaje.nombre) {
+        onPersonajeCargado(personaje.nombre)
+    }
+
     Column(
         modifier = modifier.padding(16.dp),
     ) {

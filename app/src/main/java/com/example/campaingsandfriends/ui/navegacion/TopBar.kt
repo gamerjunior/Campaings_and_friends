@@ -13,12 +13,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.campaingsandfriends.R
 import androidx.compose.ui.graphics.Color
+import com.example.campaingsandfriends.model.Personaje
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
-    navController: NavHostController
-
+    navController: NavHostController,
+    nombrePersonaje: String
 ){
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -30,7 +31,7 @@ fun TopBar(
             } else if (currentRoute == Rutas.DETALLECAMPANIA) {
                 Text(text = "Detalle de la campaña")
             } else if (currentRoute == Rutas.DETALLEPERSONAJE) {
-                Text(text = "")
+                Text(text = nombrePersonaje.ifEmpty { "Detalle del personaje" })
             } else if (currentRoute == Rutas.PERFIL) {
                 Text(text = "Perfil")
             } else if (currentRoute == Rutas.DADOS) {

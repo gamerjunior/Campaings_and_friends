@@ -111,7 +111,8 @@ val listapersonajes = listOf(
 @Composable
 fun AppNavHost(
     navController: NavHostController,
-    modifier: Modifier
+    modifier: Modifier,
+    onPersonajeCargado: (String) -> Unit
 ){
 
     NavHost(
@@ -155,7 +156,8 @@ fun AppNavHost(
         ) {
             DetallePersonajeScreen(
                 modifier = Modifier,
-                personaje = buscarPersonaje(it.arguments?.getLong("personajeId")!!)
+                personaje = buscarPersonaje(it.arguments?.getLong("personajeId")!!),
+                onPersonajeCargado = onPersonajeCargado
             )
         }
         composable(Rutas.PERFIL) {

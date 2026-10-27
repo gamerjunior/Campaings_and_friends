@@ -29,7 +29,7 @@ fun HomeScreen(
     onCampaniaListClick: (Long) -> Unit
 ){
     Column(
-        modifier = modifier.fillMaxSize().background(Color(0xFF33A86F)),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center
     ){
      Text(text = "Campaings and Friends", style = MaterialTheme.typography.headlineLarge)

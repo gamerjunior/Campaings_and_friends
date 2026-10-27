@@ -31,10 +31,7 @@ fun CardCampania(
 ){
     Card(
         modifier = modifier.size(370.dp),
-        onClick = { onClick(campania.id) },
-        colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFec9192)
-        )
+        onClick = { onClick(campania.id) }
     ) {
         Column(
             Modifier.fillMaxSize().padding(10.dp).align(Alignment.CenterHorizontally), verticalArrangement = Arrangement.spacedBy(10.dp),
