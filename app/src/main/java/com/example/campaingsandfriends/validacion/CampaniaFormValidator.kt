@@ -13,4 +13,14 @@ object CampaniaFormValidator {
         } else { null }
     }
 
+    fun validarNjugadores(Njugadores: String): String? {
+        val numero = Njugadores.toIntOrNull()
+        return when{
+            numero == null -> "necesitas minimo un jugador"
+            numero <= 0 -> "No puedes jugar con personas negativas"
+            else -> null
+        }
+    }
+
+
 }

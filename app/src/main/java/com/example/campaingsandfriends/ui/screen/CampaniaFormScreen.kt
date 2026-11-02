@@ -22,7 +22,7 @@ import com.example.campaingsandfriends.model.Campania
 import com.example.campaingsandfriends.validacion.CampaniaFormValidator
 
 @Composable
-fun campaniaFormScreen(
+fun CampaniaFormScreen(
     modifier: Modifier,
     campaniaInicial: Campania?,
     onSaveClick: (Campania) -> Unit,
@@ -37,12 +37,14 @@ fun campaniaFormScreen(
     }
 
     var Njugadores by remember{
-        mutableStateOf(campaniaInicial?.Njugadores ?: "")
+       mutableStateOf(campaniaInicial?.Njugadores?.toString() ?: "")
     }
+
+
 
     var errorNombre by remember { mutableStateOf<String?>(null) }
     var errorMaster by remember { mutableStateOf<String?>(null) }
-    var errorNJugadores by remember { mutableStateOf<Int?>(null) }
+    var errorNJugadores by remember { mutableStateOf<String?>(null) }
 
     Column(
         modifier = modifier
@@ -75,12 +77,13 @@ fun campaniaFormScreen(
             modifier = Modifier
                 .fillMaxWidth(),
             value = Njugadores,
-            onValueChange = {Njugadores = it},
+            onValueChange = { Njugadores = it},
             label = { Text("Numero de jugadores") },
             isError = errorNJugadores != null,
             supportingText = { errorNJugadores?.let { Text(text = it, color = MaterialTheme.colorScheme.error) } }
 
         )
+
 
         Row(
             modifier = Modifier
@@ -102,16 +105,15 @@ fun campaniaFormScreen(
                     errorNombre = CampaniaFormValidator.validarNombre(nombre)
                     errorMaster = CampaniaFormValidator.validarMaster(master)
 
-
                     //Faltan el resto de Validaciones
 
-                    if (errorNombre == null && errorMaster== null) {
+                    if (errorNombre == null && errorMaster== null && errorNJugadores == null) {
                         onSaveClick(
                             Campania(
                                 id = campaniaInicial?.id ?: 0,
                                 nombre = nombre,
                                 master = master,
-                                Njugadores = 0,
+                                Njugadores = Njugadores.toInt(),
                                 jugadores = ArrayList<String>(),
                                 anotaciones = ArrayList<String>(),
                                 Nsesiones = 0,
