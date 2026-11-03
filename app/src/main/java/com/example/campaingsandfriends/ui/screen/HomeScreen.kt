@@ -10,8 +10,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.remote.creation.Rc
+import androidx.compose.remote.creation.dsl.fillParentMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,7 +29,8 @@ import com.example.campaingsandfriends.ui.components.CardCampania
 fun HomeScreen(
     modifier: Modifier,
     campanias: List<Campania>,
-    onCampaniaListClick: (Long) -> Unit
+    onCampaniaListClick: (Long) -> Unit,
+    onNuevaCampaniaClick: () -> Unit
 ){
     Column(
         modifier = modifier.fillMaxSize(),
@@ -45,6 +49,13 @@ fun HomeScreen(
             onCampaniaClick = {onCampaniaListClick(it)}
         )
 
+        nuevaCampania(
+            modifier = Modifier
+                .padding(8.dp)
+                ,
+            onNuevaCampaniaClick = {onNuevaCampaniaClick()}
+        )
+
     }
 }
 @Composable
@@ -58,9 +69,9 @@ fun CampaniaList(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        items(20){
+        items(campanias.size){ campania ->
             CardCampania(
-                campania = campanias.random(),
+                campania = campanias[campania],
                 modifier = Modifier.fillMaxWidth().size(370.dp),
                 onClick = {onCampaniaClick(it)}
             )
@@ -68,6 +79,27 @@ fun CampaniaList(
     }
 }
 
+@Composable
+fun nuevaCampania(
+    modifier: Modifier,
+    onNuevaCampaniaClick: () -> Unit
+){
+    Card(
+        modifier = modifier.fillMaxWidth().height(64.dp),
+        onClick = {onNuevaCampaniaClick()}
+
+    ) {
+        Column(
+            modifier = modifier
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(text = "añadir nueva campaña")
+        }
+
+    }
+
+}
 @Preview(showBackground = true)
 @Composable
 fun CampaniaListPreview(){
@@ -102,6 +134,7 @@ fun MainScreenPreview(){
             Nsesiones = 2,
             id = 2
         )),
-        onCampaniaListClick = {}
+        onCampaniaListClick = {},
+        onNuevaCampaniaClick = {}
     )
 }

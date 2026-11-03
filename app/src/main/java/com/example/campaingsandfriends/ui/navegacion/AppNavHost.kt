@@ -129,8 +129,10 @@ fun AppNavHost(
             HomeScreen(
                 modifier = Modifier,
                 campanias = listacampanias,
-                onCampaniaListClick = {navController.navigate(Rutas.detalleCampaniaConId(it))
-                }
+                onCampaniaListClick = {
+                    navController.navigate(Rutas.detalleCampaniaConId(it))
+                },
+                onNuevaCampaniaClick = {navController.navigate(Rutas.NUEVA_CAMPANIA)}
             )
         }
         composable(Rutas.DETALLECAMPANIA,

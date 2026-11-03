@@ -18,7 +18,7 @@ import com.example.campaingsandfriends.ui.components.CardPersonaje
 fun PersonajesScreen(
     modifier: Modifier,
     personajes: List<Personaje>,
-    onPersonajeClick: (Long) -> Unit
+    onPersonajeClick: (Long) -> Unit,
 ){
     PersonajeList(
         modifier = modifier,
