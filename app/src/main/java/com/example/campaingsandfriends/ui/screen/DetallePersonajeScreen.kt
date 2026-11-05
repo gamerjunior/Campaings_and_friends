@@ -25,7 +25,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.campaingsandfriends.model.Clase
 import com.example.campaingsandfriends.model.Personaje
+import com.example.campaingsandfriends.model.Raza
 
 @Composable
 fun DetallePersonajeScreen(
@@ -134,8 +136,8 @@ fun DetallePersonajeScreenPreview(
         modifier = Modifier,
         personaje = Personaje(
             nombre = "saúl",
-            raza = "humano",
-            clase = "guerrero",
+            raza = Raza.HUMANO,
+            clase = Clase.GUERRERO,
             nivel = 10,
             vida = 10,
             id = 1

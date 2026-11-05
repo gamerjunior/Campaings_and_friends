@@ -38,9 +38,9 @@ fun PersonajeList(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-        items(personajes.size){
+        items(personajes.size){personaje ->
             CardPersonaje(
-                personaje = personajes[it],
+                personaje = personajes[personaje],
                 onClick = { onPersonajeClick(it) },
                 modifier = Modifier
             )
