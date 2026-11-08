@@ -63,28 +63,30 @@ data class Personaje(
     val velocidad: Int
         get() = raza.velocidadBase
 
-    // nivel al que se desbloquea la subclase
-    val nivelDesbloqueoSubclase: Int
-        get() = when (clase) {
-            ClaseDnd.MAGO -> 2
-            ClaseDnd.GUERRERO -> 3
-            // Puedes añadir el resto aquí
-        }
 
-    // comprueba si puedes elegir una subclase
-    val debeElegirSubclase: Boolean
-        get() = nivel >= nivelDesbloqueoSubclase && subclase == null
+
     // maximo de espacios por nivel
     val slotsMaximos: List<Int>
         get() {
             val deClase = clase.obtenerSlotsMaximosParaNivel(nivel)
             if (deClase.isNotEmpty()) return deClase
 
-            return subclase?.tablaDeConjurosPropia?.find { it.nivelPersonaje == nivel }?.slotsMaximos ?: emptyList()
+            return subclase?.obtenerSlotsMaximosParaNivel(nivel) ?: emptyList()
         }
+
+    fun obtenerSlotsMaximosPorNivel(nivelConjuro: Int): Int {
+        return slotsMaximos.getOrNull(nivelConjuro) ?: 0
+    }
+
+    fun obtenerSlotsActualesPorNivel(nivelConjuro: Int): Int {
+        val max = obtenerSlotsMaximosPorNivel(nivelConjuro)
+        if (max == 0) return 0
+        return slotsActuales[nivelConjuro] ?: max
+    }
+
     // comprueba si puedes usar magia
     val esLanzadorDeConjuros: Boolean
-        get() = slotsMaximos.isNotEmpty()
+        get() = slotsMaximos.any { it > 0 }
 
     // lista de rasgos de la raza, la clase y de la subclase en el nivel actual
     val todosLosRasgos: List<RasgoClase>
@@ -133,13 +135,25 @@ data class RasgoClase(
 //clases de dnd con sus rasgos
 enum class ClaseDnd(
     val nombreVisible: String,
-    val dadoDeGolpe: String, // ej. "d10", "d6"
+    val dadoDeGolpe: Int, // ej. "d10", "d6"
     val rasgosPorNivel: List<RasgoClase>,
-    val tablaDeConjuros: List<EspaciosPorNivel> = emptyList()
+    val tablaDeConjuros: List<EspaciosPorNivel> = emptyList(),
+    val habilidadesDisponibles: List<HabilidadDnd> = emptyList(),
+    val cantidadHabilidadesAElegir: Int = 2,
+    val nivelDesbloqueoSubclase: Int = 3
 ) {
+    //rellenar con el resto de clases mas adelante
+    VACIO(
+        nombreVisible = "Sin Clase",
+        dadoDeGolpe = 0,
+        rasgosPorNivel = emptyList(),
+        habilidadesDisponibles = emptyList(),
+        cantidadHabilidadesAElegir = 0,
+        nivelDesbloqueoSubclase = 99
+    ),
     MAGO(
         nombreVisible = "Mago",
-        dadoDeGolpe = "d6",
+        dadoDeGolpe = 6,
         rasgosPorNivel = listOf(
             RasgoClase("Recuperación Arcana", 1, "Recuperas algunos espacios de conjuro durante un descanso corto."),
             RasgoClase("Tradición Arcana", 2, "Elige tu escuela de magia (Evocación, Nigromancia, etc.)."),
@@ -147,31 +161,55 @@ enum class ClaseDnd(
             RasgoClase("Versatilidad con Conjuros", 4, "Puedes cambiar un truco por otro de tu lista.")
         ),
         tablaDeConjuros = listOf(
-            // En nivel 1
             EspaciosPorNivel(nivelPersonaje = 1, slotsMaximos = listOf(0, 2)),
-            // En nivel 2
             EspaciosPorNivel(nivelPersonaje = 2, slotsMaximos = listOf(0, 3)),
-            // En nivel 3
             EspaciosPorNivel(nivelPersonaje = 3, slotsMaximos = listOf(0, 4, 2)),
-            // En nivel 4
-            EspaciosPorNivel(nivelPersonaje = 4, slotsMaximos = listOf(0, 4, 3))
-
-        )
+            EspaciosPorNivel(nivelPersonaje = 4, slotsMaximos = listOf(0, 4, 3)),
+            EspaciosPorNivel(nivelPersonaje = 5, slotsMaximos = listOf(0, 4, 3, 2)),
+            EspaciosPorNivel(nivelPersonaje = 6, slotsMaximos = listOf(0, 4, 3, 3)),
+            EspaciosPorNivel(nivelPersonaje = 7, slotsMaximos = listOf(0, 4, 3, 3, 1)),
+            EspaciosPorNivel(nivelPersonaje = 8, slotsMaximos = listOf(0, 4, 3, 3, 2)),
+            EspaciosPorNivel(nivelPersonaje = 9, slotsMaximos = listOf(0, 4, 3, 3, 3, 1)),
+            EspaciosPorNivel(nivelPersonaje = 10, slotsMaximos = listOf(0, 4, 3, 3, 3, 2))
+        ),
+        habilidadesDisponibles = listOf(
+            HabilidadDnd.ARCANOS,
+            HabilidadDnd.HISTORIA,
+            HabilidadDnd.INVESTIGACION,
+            HabilidadDnd.MEDICINA,
+            HabilidadDnd.NATURALEZA,
+            HabilidadDnd.RELIGION
+        ),
+        cantidadHabilidadesAElegir = 2,
+        nivelDesbloqueoSubclase = 2
     ),
     GUERRERO(
         nombreVisible = "Guerrero",
-        dadoDeGolpe = "d10",
+        dadoDeGolpe = 10,
         rasgosPorNivel = listOf(
             RasgoClase("Estilo de Combate", 1, " Elige una especialización de combate (Defensa, Duelista, etc.)."),
             RasgoClase("Viento Renovado", 1, "Usa una acción de bonificación para recuperar 1d10 + nivel PG."),
             RasgoClase("Acción Súbita", 2, "Puedes realizar una acción adicional en tu turno."),
             RasgoClase("Arquetipo Marcial", 3, "Elige tu subclase (Campeón, Maestro de Batalla...).")
-        )
+        ),
+        habilidadesDisponibles = listOf(
+            HabilidadDnd.ACROBACIAS,
+            HabilidadDnd.ATLETISMO,
+            HabilidadDnd.HISTORIA,
+            HabilidadDnd.INTIMIDACION,
+            HabilidadDnd.PERCEPCION,
+            HabilidadDnd.SUPERVIVENCIA
+        ),
+        cantidadHabilidadesAElegir = 2,
+        nivelDesbloqueoSubclase = 3
     );
 
     //devuelve una lista con los slots disponibles para usar magia
     fun obtenerSlotsMaximosParaNivel(nivelActual: Int): List<Int> {
-        return tablaDeConjuros.find { it.nivelPersonaje == nivelActual }?.slotsMaximos ?: emptyList()
+        return tablaDeConjuros
+            .filter { it.nivelPersonaje <= nivelActual }
+            .maxByOrNull { it.nivelPersonaje }
+            ?.slotsMaximos ?: emptyList()
     }
     //devuelve una lista con los rasgos de la clase en el nivel actual
     fun obtenerRasgosParaNivel(nivelActual: Int): List<RasgoClase> {
@@ -193,12 +231,20 @@ data class Subclase(
     // si la subclase otorga magia a una clase que no la tiene
     val tablaDeConjurosPropia: List<EspaciosPorNivel> = emptyList()
 ) {
+    fun obtenerSlotsMaximosParaNivel(nivelActual: Int): List<Int> {
+        return tablaDeConjurosPropia
+            .filter { it.nivelPersonaje <= nivelActual }
+            .maxByOrNull { it.nivelPersonaje }
+            ?.slotsMaximos ?: emptyList()
+    }
+
     fun obtenerRasgosParaNivel(nivelActual: Int): List<RasgoClase> {
         return rasgosPorNivel.filter { it.nivelRequerido <= nivelActual }
     }
 }
 //lista de subclases
 object CatalogoSubclases {
+    //rellenar con el resto de subclases
     val EVOCACION = Subclase(
         nombreId = "EVOCACION",
         nombreVisible = "Escuela de Evocación",
@@ -250,6 +296,12 @@ data class AtributosModificadores(
 )
 
 object CatalogoRazas {
+    //rellenar con el resto de razas
+    val VACIO = RazaDnd(
+        nombreId = "VACIO",
+        nombreVisible = "Sin Raza",
+        modificadoresAtributos = AtributosModificadores()
+    )
     val ENANO = RazaDnd(
         nombreId = "ENANO",
         nombreVisible = "Enano",
@@ -287,6 +339,9 @@ object CatalogoRazas {
             RasgoClase("Linaje Feérico", 1, "Tienes ventaja en las tiradas de salvación para no quedar hechizado y la magia no puede dormirte.")
         )
     )
+
+    val todasRazas: List<RazaDnd>
+        get() = listOf(ENANO, HUMANO, ELFO)
 }
 
 data class SubrazaDnd(
@@ -298,6 +353,7 @@ data class SubrazaDnd(
 )
 
 object CatalogoSubrazas {
+    //rellenar con el resto de subrazas
     val ALTO_ELFO = SubrazaDnd(
         nombreId = "ALTO_ELFO",
         nombreVisible = "Alto Elfo",
@@ -309,7 +365,7 @@ object CatalogoSubrazas {
         )
     )
 
-    val ENANO_MONTAÑA = SubrazaDnd(
+    val ENANO_MONTANIA = SubrazaDnd(
         nombreId = "ENANO_MONTAÑA",
         nombreVisible = "Enano de las Montañas",
         razaBaseId = "ENANO",
@@ -321,7 +377,7 @@ object CatalogoSubrazas {
 
     // Obtener las subrazas válidas para una raza concreta
     fun obtenerSubrazasPara(razaId: String): List<SubrazaDnd> {
-        return listOf(ALTO_ELFO, ENANO_MONTAÑA).filter { it.razaBaseId == razaId }
+        return listOf(ALTO_ELFO, ENANO_MONTANIA).filter { it.razaBaseId == razaId }
     }
 }
 
@@ -342,7 +398,7 @@ enum class HabilidadDnd(val nombreVisible: String, val atributoAsociado: String)
     MEDICINA("Medicina", "SAB"),
     SUPERVIVENCIA("Supervivencia", "SAB"),
     TRATO_ANIMALES("Trato con Animales", "SAB"),
-    ENGAÑO("Engaño", "CAR"),
+    ENGANIO("Engaño", "CAR"),
     INTIMIDACION("Intimidación", "CAR"),
     INTERPRETACION("Interpretación", "CAR"),
     PERSUASION("Persuasión", "CAR")

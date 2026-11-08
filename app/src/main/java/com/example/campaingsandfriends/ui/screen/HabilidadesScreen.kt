@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.campaingsandfriends.model.HabilidadDnd
 import com.example.campaingsandfriends.model.Personaje
+import com.example.campaingsandfriends.ui.theme.Primario
 
 @Composable
 fun HabilidadesScreen(
@@ -33,11 +34,13 @@ fun HabilidadesScreen(
         items(habilidades.size) { index ->
             val hab = habilidades[index]
             val mod = personaje.calcularModificadorHabilidad(hab)
-            val modText = if (mod >= 0) "+$mod" else "$mod"
+            val modText = if (mod >= 0) "+$mod" else "-$mod"
 
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+                colors = CardDefaults.cardColors(
+                    containerColor = Primario
+                )
             ) {
                 Row(
                     modifier = Modifier

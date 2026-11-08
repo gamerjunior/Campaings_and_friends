@@ -2,17 +2,20 @@ package com.example.campaingsandfriends.ui.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.campaingsandfriends.model.Personaje
+import com.example.campaingsandfriends.ui.theme.Primario
 
 @Composable
 fun HechizosScreen(
@@ -38,15 +41,30 @@ fun HechizosScreen(
             )
             val slots = personaje.slotsMaximos
             slots.forEachIndexed { nivelConjuro, maxSlots ->
-                if (nivelConjuro > 0) {
+                if (nivelConjuro > 0 && maxSlots > 0) {
+                    val actuales = personaje.obtenerSlotsActualesPorNivel(nivelConjuro)
                     Card(
                         modifier = Modifier.fillMaxWidth(),
-                        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                        colors = CardDefaults.cardColors(
+                            containerColor = Primario
+                        )
                     ) {
-                        Column(modifier = Modifier.padding(12.dp)) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(12.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
                             Text(
-                                text = "Nivel $nivelConjuro: $maxSlots espacios máximos",
-                                fontSize = 16.sp
+                                text = "Nivel $nivelConjuro",
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                text = "$actuales / $maxSlots disponibles",
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Medium
                             )
                         }
                     }

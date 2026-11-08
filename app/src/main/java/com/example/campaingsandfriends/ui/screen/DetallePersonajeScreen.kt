@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -47,12 +48,12 @@ fun DetallePersonajeScreen(
             ) {
                 Text(
                     text = "Iniciativa",
-                    fontSize = 30.sp,
+                    fontSize = 25.sp,
                     modifier = Modifier.align(Alignment.Center)
                 )
                 Text(
                     text = "\n\n\n${personaje.atributosFinales.obtenerModificador(personaje.atributosFinales.destreza)}",
-                    fontSize = 30.sp,
+                    fontSize = 25.sp,
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
@@ -61,6 +62,20 @@ fun DetallePersonajeScreen(
                 painter = painterResource(com.example.campaingsandfriends.R.drawable.image_mokup),
                 contentDescription = "Imagen personaje"
             )
+            Box(
+                modifier = Modifier.size(128.dp),
+            ) {
+                Text(
+                    text = "Velocidad",
+                    fontSize = 25.sp,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+                Text(
+                    text = "\n\n\n${personaje.velocidad}",
+                    fontSize = 25.sp,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
         }
 
         Row(
@@ -71,6 +86,7 @@ fun DetallePersonajeScreen(
                 fontSize = 20.sp,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
+
             Text(
                 text = "Armadura: ",
                 fontSize = 20.sp,
@@ -88,7 +104,8 @@ fun DetallePersonajeScreen(
                     text = {
                         Text(
                             text = titulo,
-                            fontSize = 16.sp
+                            fontSize = 15.sp,
+                            color = Color.Black
                         )
                     }
                 )

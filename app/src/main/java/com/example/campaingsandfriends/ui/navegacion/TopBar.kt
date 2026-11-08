@@ -24,6 +24,8 @@ fun TopBar(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
+    val personajeId = navBackStackEntry?.arguments?.getLong("personajeId")
+    val campaniaId = navBackStackEntry?.arguments?.getLong("campaniaId")
     TopAppBar(
         title = {
             if (currentRoute == Rutas.HOME) {
@@ -50,9 +52,27 @@ fun TopBar(
                     )
                 }
             }
+
+        }, actions = {
+            if (currentRoute == Rutas.DETALLECAMPANIA && campaniaId != null){
+                IconButton(onClick = { navController.navigate(Rutas.formularioCampaniaConId(campaniaId)) }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.edit),
+                        contentDescription = "edit"
+                    )
+                }
+            }
+            if (currentRoute == Rutas.DETALLEPERSONAJE && personajeId != null){
+                IconButton(onClick = { navController.navigate(Rutas.formularioPersonajeConId(personajeId)) }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.edit),
+                        contentDescription = "edit"
+                    )
+                }
+            }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(0xFF94e1bc),
+            containerColor = Color(0xFF6B529A),
             titleContentColor = Color.Black)
     )
 

@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.campaingsandfriends.model.Personaje
+import com.example.campaingsandfriends.ui.theme.Primario
 
 @Composable
 fun RasgosScreen(
@@ -39,7 +40,9 @@ fun RasgosScreen(
                 val rasgo = rasgos[index]
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                    colors = CardDefaults.cardColors(
+                        containerColor = Primario
+                    )
                 ) {
                     Column(
                         modifier = Modifier.padding(12.dp)

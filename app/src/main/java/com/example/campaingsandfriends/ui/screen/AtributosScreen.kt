@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.campaingsandfriends.model.Personaje
+import com.example.campaingsandfriends.ui.theme.Primario
 
 @Composable
 fun AtributosScreen(
@@ -43,10 +44,13 @@ fun AtributosScreen(
         items(listaAtributos.size) { index ->
             val (nombre, valor) = listaAtributos[index]
             val mod = atributos.obtenerModificador(valor)
-            val modText = if (mod >= 0) "+$mod" else "$mod"
+            val modText = if (mod >= 0) "+$mod" else "-$mod"
 
             Card(
                 modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(
+                    containerColor = Primario
+                )
             ) {
                 Column(
                     modifier = Modifier.padding(12.dp),

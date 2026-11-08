@@ -8,7 +8,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,13 +15,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.campaingsandfriends.R
+import com.example.campaingsandfriends.ui.theme.Primario
 
 @Composable
 fun BottomBar (
     navController: NavHostController,
 ){
     NavigationBar(
-        containerColor = Color(0xFF94e1bc)
+        containerColor = Primario
     ){
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
@@ -37,7 +37,7 @@ fun BottomBar (
         NavigationBarItem(
             selected = currentRoute == Rutas.DADOS,
             onClick = { navController.navigate(Rutas.DADOS) },
-            icon = { Icon(painter = painterResource(R.drawable.dado_20), contentDescription = "Dados", modifier = Modifier.size(24.dp)) },
+            icon = { Icon(painter = painterResource(R.drawable.dados), contentDescription = "Dados", modifier = Modifier.size(24.dp)) },
             label = { Text("dados")}
         )
 

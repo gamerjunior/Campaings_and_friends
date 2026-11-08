@@ -18,8 +18,9 @@ import com.example.campaingsandfriends.ui.screen.DadoScreen
 import com.example.campaingsandfriends.ui.screen.DetalleCampaniaScreen
 import com.example.campaingsandfriends.ui.screen.DetallePersonajeScreen
 import com.example.campaingsandfriends.ui.screen.HomeScreen
-import com.example.campaingsandfriends.ui.screen.PersonajesScreen
 import com.example.campaingsandfriends.ui.screen.PerfilScreen
+import com.example.campaingsandfriends.ui.screen.PersonajeFormScreen
+import com.example.campaingsandfriends.ui.screen.PersonajesScreen
 
 object Rutas{
 
@@ -31,14 +32,18 @@ object Rutas{
     const val PERSONAJES = "personajes"
 
     const val NUEVA_CAMPANIA = "nueva-campania"
-
     const val EDITAR_CAMPANIA = "editar-campania/{campaniaId}"
+
+    const val NUEVO_PERSONAJE = "nuevo-personaje"
+    const val EDITAR_PERSONAJE = "editar-personaje/{personajeId}"
 
     fun detalleCampaniaConId(campaniaId: Long) = "detalleCampania/$campaniaId"
 
     fun detallePersonajeConId(personajeId: Long) = "detallePersonaje/$personajeId"
 
     fun formularioCampaniaConId(campaniaId: Long) = "editar-campania/$campaniaId"
+
+    fun formularioPersonajeConId(personajeId: Long) = "editar-personaje/$personajeId"
 }
 
 @Composable
@@ -89,7 +94,7 @@ fun AppNavHost(
 
     val listapersonajes = remember { mutableListOf(
         Personaje(
-            nombre = "saúl",
+            nombre = "saúl guerrero",
             raza = CatalogoRazas.HUMANO,
             clase = ClaseDnd.GUERRERO,
             nivel = 10,
@@ -101,20 +106,21 @@ fun AppNavHost(
             id = 1
         ),
         Personaje(
-            nombre = "saúl",
+            nombre = "saúl mago",
             raza = CatalogoRazas.HUMANO,
-            clase = ClaseDnd.GUERRERO,
+            clase = ClaseDnd.MAGO,
             nivel = 10,
             vida = PuntosDeVida(
                 maximos = 10,
                 actuales = 10,
                 temporales = 0
             ),
-            id = 1
+            id = 2,
+            slotsActuales = mapOf(1 to 4, 2 to 3, 3 to 3, 4 to 3, 5 to 2)
         ),
         Personaje(
-            nombre = "saúl",
-            raza = CatalogoRazas.HUMANO,
+            nombre = "saúl enano",
+            raza = CatalogoRazas.ENANO,
             clase = ClaseDnd.GUERRERO,
             nivel = 10,
             vida = PuntosDeVida(
@@ -122,7 +128,7 @@ fun AppNavHost(
                 actuales = 10,
                 temporales = 0
             ),
-            id = 1
+            id = 3
         ),
 
     ) }
@@ -155,8 +161,8 @@ fun AppNavHost(
             PersonajesScreen(
                 modifier = Modifier,
                 personajes = listapersonajes,
-                onPersonajeClick = { navController.navigate(Rutas.detallePersonajeConId(it))
-                }
+                onPersonajeClick = { navController.navigate(Rutas.detallePersonajeConId(it)) },
+                onNuevoPersonajeClick = { navController.navigate(Rutas.NUEVO_PERSONAJE) }
             )
         }
 
@@ -211,7 +217,36 @@ fun AppNavHost(
                 onCancelarClick = { navController.popBackStack() },
                 campaniaInicial = listacampanias.find { it.id == arg.arguments?.getLong("campaniaId") } !!
             )
+        }
 
+        composable(Rutas.NUEVO_PERSONAJE) {
+            PersonajeFormScreen(
+                modifier = Modifier,
+                personajeInicial = null,
+                onSaveClick = { nuevoPersonaje ->
+                    listapersonajes.add(nuevoPersonaje)
+                    navController.popBackStack()
+                },
+                onCancelarClick = { navController.popBackStack() }
+            )
+        }
+
+        composable(
+            Rutas.EDITAR_PERSONAJE,
+            arguments = listOf(navArgument("personajeId") { type = NavType.LongType })
+        ) { arg ->
+            PersonajeFormScreen(
+                modifier = Modifier,
+                personajeInicial = listapersonajes.find { it.id == arg.arguments?.getLong("personajeId") },
+                onSaveClick = { personajeActualizado ->
+                    val indice = listapersonajes.indexOfFirst { it.id == personajeActualizado.id }
+                    if (indice != -1) {
+                        listapersonajes[indice] = personajeActualizado
+                    }
+                    navController.popBackStack()
+                },
+                onCancelarClick = { navController.popBackStack() }
+            )
         }
     }
 }
