@@ -9,7 +9,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.campaingsandfriends.model.CatalogoRazas
+import com.example.campaingsandfriends.model.ClaseDnd
 import com.example.campaingsandfriends.model.Personaje
+import com.example.campaingsandfriends.model.PuntosDeVida
 import com.example.campaingsandfriends.ui.components.CardPersonaje
 
 
@@ -56,36 +59,16 @@ fun PersonajeListPreview(){
         personajes = listOf(
             Personaje(
                 nombre = "saúl",
-                raza = "humano",
-                clase = "guerrero",
+                raza = CatalogoRazas.HUMANO,
+                clase = ClaseDnd.GUERRERO,
                 nivel = 10,
-                vida = 10,
+                vida = PuntosDeVida(
+                    maximos = 10,
+                    actuales = 10,
+                    temporales = 0
+                ),
                 id = 1
             ),
-            Personaje(
-                nombre = "saúl",
-                raza = "humano",
-                clase = "guerrero",
-                nivel = 10,
-                vida = 10,
-                id = 1
-            ),
-            Personaje(
-                nombre = "saúl",
-                raza = "humano",
-                clase = "guerrero",
-                nivel = 10,
-                vida = 10,
-                id = 1
-            ),
-            Personaje(
-                nombre = "saúl",
-                raza = "humano",
-                clase = "guerrero",
-                nivel = 10,
-                vida = 10,
-                id = 1
-            )
         ),
         onPersonajeClick = {}
     )
@@ -99,36 +82,40 @@ fun PersonajesScreenPreview(){
         personajes = listOf(
             Personaje(
                 nombre = "saúl",
-                raza = "humano",
-                clase = "guerrero",
+                raza = CatalogoRazas.HUMANO,
+                clase = ClaseDnd.GUERRERO,
                 nivel = 10,
-                vida = 10,
+                vida = PuntosDeVida(
+                    maximos = 10,
+                    actuales = 10,
+                    temporales = 0
+                ),
                 id = 1
             ),
             Personaje(
                 nombre = "saúl",
-                raza = "humano",
-                clase = "guerrero",
+                raza = CatalogoRazas.HUMANO,
+                clase = ClaseDnd.GUERRERO,
                 nivel = 10,
-                vida = 10,
+                vida = PuntosDeVida(
+                    maximos = 10,
+                    actuales = 10,
+                    temporales = 0
+                ),
                 id = 1
             ),
             Personaje(
                 nombre = "saúl",
-                raza = "humano",
-                clase = "guerrero",
+                raza = CatalogoRazas.HUMANO,
+                clase = ClaseDnd.GUERRERO,
                 nivel = 10,
-                vida = 10,
+                vida = PuntosDeVida(
+                    maximos = 10,
+                    actuales = 10,
+                    temporales = 0
+                ),
                 id = 1
             ),
-            Personaje(
-                nombre = "saúl",
-                raza = "humano",
-                clase = "guerrero",
-                nivel = 10,
-                vida = 10,
-                id = 1
-            )
 
         ),
         onPersonajeClick = {}

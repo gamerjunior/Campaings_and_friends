@@ -17,7 +17,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.campaingsandfriends.model.CatalogoRazas
+import com.example.campaingsandfriends.model.ClaseDnd
 import com.example.campaingsandfriends.model.Personaje
+import com.example.campaingsandfriends.model.PuntosDeVida
 
 @Composable
 fun CardPersonaje(
@@ -45,10 +48,10 @@ fun CardPersonaje(
                     fontSize = 20.sp
                 )
                 Text(
-                    text = "nivel: ${personaje.nivel.toString()} | raza: ${personaje.raza}"
+                    text = "nivel: ${personaje.nivel.toString()} | raza: ${personaje.raza.nombreVisible}"
                 )
                 Text(
-                    text = "clase: ${personaje.clase}"
+                    text = "clase: ${personaje.clase.nombreVisible} | subclase: ${personaje.subclase?.nombreVisible ?: "Ninguna"}"
                 )
             }
         }
@@ -59,12 +62,17 @@ fun CardPersonaje(
 @Composable
 private fun CardPersonajePreview(){
     CardPersonaje(modifier = Modifier,
-        personaje = Personaje(
+        Personaje(
             nombre = "saúl",
-            raza = "humano",
-            clase = "guerrero",
+            raza = CatalogoRazas.HUMANO,
+            clase = ClaseDnd.GUERRERO,
             nivel = 10,
-            vida = 10,
-            id = 1),
+            vida = PuntosDeVida(
+                maximos = 10,
+                actuales = 10,
+                temporales = 0
+            ),
+            id = 1
+        ),
         onClick = {})
 }

@@ -9,7 +9,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.campaingsandfriends.model.Campania
+import com.example.campaingsandfriends.model.CatalogoRazas
+import com.example.campaingsandfriends.model.ClaseDnd
 import com.example.campaingsandfriends.model.Personaje
+import com.example.campaingsandfriends.model.PuntosDeVida
 import com.example.campaingsandfriends.ui.screen.CampaniaFormScreen
 import com.example.campaingsandfriends.ui.screen.DadoScreen
 import com.example.campaingsandfriends.ui.screen.DetalleCampaniaScreen
@@ -86,37 +89,41 @@ fun AppNavHost(
 
     val listapersonajes = remember { mutableListOf(
         Personaje(
-            nombre = "idril",
-            raza = "semielfo",
-            clase = "picaro",
-            nivel = 2,
-            vida = 14,
+            nombre = "saúl",
+            raza = CatalogoRazas.HUMANO,
+            clase = ClaseDnd.GUERRERO,
+            nivel = 10,
+            vida = PuntosDeVida(
+                maximos = 10,
+                actuales = 10,
+                temporales = 0
+            ),
             id = 1
         ),
         Personaje(
-            nombre = "manolo",
-            raza = "orco",
-            clase = "guerrero",
-            nivel = 2,
-            vida = 20,
-            id = 2
+            nombre = "saúl",
+            raza = CatalogoRazas.HUMANO,
+            clase = ClaseDnd.GUERRERO,
+            nivel = 10,
+            vida = PuntosDeVida(
+                maximos = 10,
+                actuales = 10,
+                temporales = 0
+            ),
+            id = 1
         ),
         Personaje(
             nombre = "saúl",
-            raza = "humano",
-            clase = "guerrero",
+            raza = CatalogoRazas.HUMANO,
+            clase = ClaseDnd.GUERRERO,
             nivel = 10,
-            vida = 4,
-            id = 3
+            vida = PuntosDeVida(
+                maximos = 10,
+                actuales = 10,
+                temporales = 0
+            ),
+            id = 1
         ),
-        Personaje(
-            nombre = "brudom",
-            raza = "draconido",
-            clase = "explorador",
-            nivel = 6,
-            vida = 10,
-            id = 4
-        )
 
     ) }
 
