@@ -501,8 +501,8 @@ private fun AtributoControlCard(
 ) {
     val total = valorBase + bonusRaza
     val mod = (total - 10) / 2
-    val modText = if (mod >= 0) "+$mod" else "$mod"
-    val bonusText = if (bonusRaza >= 0) "+$bonusRaza" else "$bonusRaza"
+    val modText = if (mod >= 0) "+$mod" else "-$mod"
+    val bonusText = if (bonusRaza >= 0) "+$bonusRaza" else "-$bonusRaza"
 
     val costoIncremento = if (valorBase >= 13) 2 else 1
     val puedeIncrementar = valorBase < 15 && puntosDisponibles >= costoIncremento

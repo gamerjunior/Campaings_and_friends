@@ -37,7 +37,12 @@ fun CardCampania(
         )
     ) {
         Column(
-            Modifier.fillMaxSize().padding(10.dp).align(Alignment.CenterHorizontally), verticalArrangement = Arrangement.spacedBy(10.dp),
+            Modifier
+                .fillMaxSize()
+                .padding(10.dp)
+                .align(Alignment.CenterHorizontally)
+                .weight(0.6f),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
 
         ) {
             Image(
@@ -53,7 +58,12 @@ fun CardCampania(
             )
 
 
-            Row(Modifier.align(Alignment.CenterHorizontally).weight(0.4f)) {
+            Row(
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .weight(0.4f),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
                 Image(
                     modifier = Modifier.size(64.dp),
                     painter = painterResource(R.drawable.group),

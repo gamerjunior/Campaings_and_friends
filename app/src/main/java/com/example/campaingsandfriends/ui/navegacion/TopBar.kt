@@ -19,7 +19,8 @@ import com.example.campaingsandfriends.model.Personaje
 @Composable
 fun TopBar(
     navController: NavHostController,
-    nombrePersonaje: String
+    nombrePersonaje: String,
+    nombreCamapania: String
 ){
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -40,7 +41,16 @@ fun TopBar(
                 Text(text = "Dados")
             } else if (currentRoute == Rutas.PERSONAJES) {
                 Text(text = "Personajes")
-            } else {
+            }else if (currentRoute == Rutas.NUEVA_CAMPANIA) {
+                Text(text= "Nueva Campaña")
+            }else if(currentRoute == Rutas.EDITAR_CAMPANIA){
+                Text(text = nombreCamapania.ifEmpty { "Editar Campania" } )
+            }else if (currentRoute == Rutas.NUEVO_PERSONAJE) {
+                Text(text= "Nuevo Personaje")
+            }else if(currentRoute == Rutas.EDITAR_PERSONAJE){
+                Text(text = nombrePersonaje.ifEmpty { "Editar Personaje" } )
+            }
+            else {
                 Text(text = "")
             }
         }, navigationIcon = {

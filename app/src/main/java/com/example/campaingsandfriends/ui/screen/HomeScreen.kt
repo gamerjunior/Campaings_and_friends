@@ -91,8 +91,9 @@ fun nuevaCampania(
     ) {
         Column(
             modifier = modifier
-                .fillMaxWidth(),
+                .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             Text(text = "añadir nueva campaña")
         }

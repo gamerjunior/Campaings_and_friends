@@ -27,13 +27,14 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
 
             var nombrePersonajeSeleccionado by remember { mutableStateOf("") }
-
+            var nombreCampaniaSeleccionado by remember { mutableStateOf("") }
             CampaingsAndFriendsTheme {
                 Scaffold(modifier = Modifier.fillMaxSize(),
                         topBar = {
                             TopBar(
                                 navController = navController,
-                                nombrePersonaje = nombrePersonajeSeleccionado
+                                nombrePersonaje = nombrePersonajeSeleccionado,
+                                nombreCamapania = nombreCampaniaSeleccionado
                             )
                         },
                         bottomBar = {BottomBar(navController = navController)}
