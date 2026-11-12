@@ -11,16 +11,14 @@ object PersonajeFormValidator {
         val num = nivel.toIntOrNull()
         return when {
             num == null -> "El nivel debe ser un número"
-            num < 1 || num > 20 -> "El nivel debe estar entre 1 y 20"
+            num !in 1..20 -> "El nivel debe estar entre 1 y 20"
             else -> null
         }
     }
 
-    fun validarAtributo(valor: String, nombre: String): String? {
-        val num = valor.toIntOrNull()
+    fun validarHabilidades(seleccionadas: Int, requeridas: Int = 2): String? {
         return when {
-            num == null -> "El valor de $nombre debe ser un número"
-            num < 1 || num > 30 -> "$nombre debe estar entre 1 y 30"
+            seleccionadas < requeridas -> "Selecciona al menos $requeridas habilidades"
             else -> null
         }
     }

@@ -114,6 +114,7 @@ fun PersonajeFormScreen(
     var errorNombre by remember { mutableStateOf<String?>(null) }
     var errorNivel by remember { mutableStateOf<String?>(null) }
     var errorVida by remember { mutableStateOf<String?>(null) }
+    var errorHabilidades by remember { mutableStateOf<String?>(null) }
 
     val scrollState = rememberScrollState()
     val subrazasDisponibles = CatalogoSubrazas.obtenerSubrazasPara(razaSeleccionada.nombreId)
@@ -408,6 +409,13 @@ fun PersonajeFormScreen(
                     MaterialTheme.colorScheme.onSurfaceVariant
                 }
             )
+            errorHabilidades?.let {
+                Text(
+                    text = it,
+                    color = MaterialTheme.colorScheme.error,
+                    fontSize = 14.sp
+                )
+            }
 
             claseSeleccionada.habilidadesDisponibles.forEach { habilidad ->
                 val isChecked = habilidad in competenciasSeleccionadas
@@ -453,8 +461,12 @@ fun PersonajeFormScreen(
                 onClick = {
                     errorNombre = PersonajeFormValidator.validarNombre(nombre)
                     errorNivel = PersonajeFormValidator.validarNivel(nivel)
+                    errorHabilidades = PersonajeFormValidator.validarHabilidades(
+                        seleccionadas = competenciasSeleccionadas.size,
+                        requeridas = claseSeleccionada.cantidadHabilidadesAElegir
+                    )
 
-                    if (errorNombre == null && errorNivel == null && errorVida == null && puntosDisponibles >= 0) {
+                    if (errorNombre == null && errorNivel == null && errorVida == null && errorHabilidades == null && puntosDisponibles >= 0) {
                         val competenciasMap = competenciasSeleccionadas.associateWith { TipoCompetencia.COMPETENTE }
 
                         val nuevoPersonaje = Personaje(
