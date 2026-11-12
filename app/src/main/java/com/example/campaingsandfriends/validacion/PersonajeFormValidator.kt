@@ -1,5 +1,7 @@
 package com.example.campaingsandfriends.validacion
 
+import com.example.campaingsandfriends.model.ClaseDnd
+
 object PersonajeFormValidator {
     fun validarNombre(nombre: String): String? {
         return if (nombre.isBlank()) {
@@ -22,4 +24,14 @@ object PersonajeFormValidator {
             else -> null
         }
     }
+
+    fun validarClase(clase: ClaseDnd): String? {
+        return when {
+            clase == ClaseDnd.VACIO -> "Selecciona una clase"
+            else -> null
+        }
+    }
+
+
+
 }
