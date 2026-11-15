@@ -1,6 +1,12 @@
 package com.example.campaingsandfriends.validacion
 
+import com.example.campaingsandfriends.model.CatalogoRazas
+import com.example.campaingsandfriends.model.CatalogoSubclases
+import com.example.campaingsandfriends.model.CatalogoSubrazas
 import com.example.campaingsandfriends.model.ClaseDnd
+import com.example.campaingsandfriends.model.RazaDnd
+import com.example.campaingsandfriends.model.Subclase
+import com.example.campaingsandfriends.model.SubrazaDnd
 
 object PersonajeFormValidator {
     fun validarNombre(nombre: String): String? {
@@ -32,6 +38,27 @@ object PersonajeFormValidator {
         }
     }
 
+    fun validarRaza(raza: RazaDnd): String? {
+        return when {
+            raza == CatalogoRazas.VACIO || raza.nombreId == "VACIO" -> "Selecciona una raza"
+            else -> null
+        }
+    }
 
+    fun validarSubraza(raza: RazaDnd, subraza: SubrazaDnd?): String? {
+        val subrazasDisponibles = CatalogoSubrazas.obtenerSubrazasPara(raza.nombreId)
+        return when {
+            subrazasDisponibles.isNotEmpty() && subraza == null -> "Selecciona una subraza"
+            else -> null
+        }
+    }
 
+    fun validarSubclase(clase: ClaseDnd, nivel: Int, subclase: Subclase?): String? {
+        val subclasesDisponibles = CatalogoSubclases.obtenerSubclasesPara(clase)
+        val puedeElegir = clase != ClaseDnd.VACIO && nivel >= clase.nivelDesbloqueoSubclase
+        return when {
+            puedeElegir && subclasesDisponibles.isNotEmpty() && subclase == null -> "Selecciona una subclase"
+            else -> null
+        }
+    }
 }

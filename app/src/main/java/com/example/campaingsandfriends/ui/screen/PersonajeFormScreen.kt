@@ -113,8 +113,11 @@ fun PersonajeFormScreen(
     // Estado de errores de validación
     var errorNombre by remember { mutableStateOf<String?>(null) }
     var errorNivel by remember { mutableStateOf<String?>(null) }
+    var errorRaza by remember { mutableStateOf<String?>(null) }
+    var errorSubraza by remember { mutableStateOf<String?>(null) }
     var errorHabilidades by remember { mutableStateOf<String?>(null) }
     var errorClase by remember { mutableStateOf<String?>(null) }
+    var errorSubclase by remember { mutableStateOf<String?>(null) }
 
     val scrollState = rememberScrollState()
     val subrazasDisponibles = CatalogoSubrazas.obtenerSubrazasPara(razaSeleccionada.nombreId)
@@ -164,6 +167,8 @@ fun PersonajeFormScreen(
                 value = razaSeleccionada.nombreVisible,
                 onValueChange = {},
                 label = { Text("Raza") },
+                isError = errorRaza != null,
+                supportingText = { errorRaza?.let { Text(text = it, color = MaterialTheme.colorScheme.error) } },
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedRaza) },
                 colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors()
             )
@@ -177,6 +182,8 @@ fun PersonajeFormScreen(
                         onClick = {
                             razaSeleccionada = raza
                             subrazaSeleccionada = null
+                            errorRaza = null
+                            errorSubraza = null
                             expandedRaza = false
                         }
                     )
@@ -196,6 +203,8 @@ fun PersonajeFormScreen(
                     value = subrazaSeleccionada?.nombreVisible ?: "Ninguna",
                     onValueChange = {},
                     label = { Text("Subraza") },
+                    isError = errorSubraza != null,
+                    supportingText = { errorSubraza?.let { Text(text = it, color = MaterialTheme.colorScheme.error) } },
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedSubraza) },
                     colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors()
                 )
@@ -207,6 +216,7 @@ fun PersonajeFormScreen(
                         text = { Text("Ninguna") },
                         onClick = {
                             subrazaSeleccionada = null
+                            errorSubraza = null
                             expandedSubraza = false
                         }
                     )
@@ -215,6 +225,7 @@ fun PersonajeFormScreen(
                             text = { Text(subraza.nombreVisible) },
                             onClick = {
                                 subrazaSeleccionada = subraza
+                                errorSubraza = null
                                 expandedSubraza = false
                             }
                         )
@@ -249,6 +260,7 @@ fun PersonajeFormScreen(
                         onClick = {
                             claseSeleccionada = clase
                             subclaseSeleccionada = null
+                            errorSubclase = null
                             expandedClase = false
                             // Filtrar competencias para conservar solo las válidas para la nueva clase
                             competenciasSeleccionadas = competenciasSeleccionadas.filter { it in clase.habilidadesDisponibles }.toSet()
@@ -270,6 +282,8 @@ fun PersonajeFormScreen(
                     value = subclaseSeleccionada?.nombreVisible ?: "Ninguna",
                     onValueChange = {},
                     label = { Text("Subclase (Nivel ${claseSeleccionada.nivelDesbloqueoSubclase}+)") },
+                    isError = errorSubclase != null,
+                    supportingText = { errorSubclase?.let { Text(text = it, color = MaterialTheme.colorScheme.error) } },
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedSubclase) },
                     colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors()
                 )
@@ -281,6 +295,7 @@ fun PersonajeFormScreen(
                         text = { Text("Ninguna") },
                         onClick = {
                             subclaseSeleccionada = null
+                            errorSubclase = null
                             expandedSubclase = false
                         }
                     )
@@ -289,6 +304,7 @@ fun PersonajeFormScreen(
                             text = { Text(subclase.nombreVisible) },
                             onClick = {
                                 subclaseSeleccionada = subclase
+                                errorSubclase = null
                                 expandedSubclase = false
                             }
                         )
@@ -461,15 +477,19 @@ fun PersonajeFormScreen(
 
             Button(
                 onClick = {
+                    val numNivel = nivel.toIntOrNull() ?: 1
                     errorNombre = PersonajeFormValidator.validarNombre(nombre)
                     errorNivel = PersonajeFormValidator.validarNivel(nivel)
+                    errorRaza = PersonajeFormValidator.validarRaza(razaSeleccionada)
+                    errorSubraza = PersonajeFormValidator.validarSubraza(razaSeleccionada, subrazaSeleccionada)
+                    errorClase = PersonajeFormValidator.validarClase(claseSeleccionada)
+                    errorSubclase = PersonajeFormValidator.validarSubclase(claseSeleccionada, numNivel, subclaseSeleccionada)
                     errorHabilidades = PersonajeFormValidator.validarHabilidades(
                         seleccionadas = competenciasSeleccionadas.size,
                         requeridas = claseSeleccionada.cantidadHabilidadesAElegir
                     )
-                    errorClase = PersonajeFormValidator.validarClase(claseSeleccionada)
 
-                    if (errorNombre == null && errorNivel == null && errorHabilidades == null && errorClase == null && puntosDisponibles >= 0) {
+                    if (errorNombre == null && errorNivel == null && errorRaza == null && errorSubraza == null && errorClase == null && errorSubclase == null && errorHabilidades == null && puntosDisponibles >= 0) {
                         val competenciasMap = competenciasSeleccionadas.associateWith { TipoCompetencia.COMPETENTE }
 
                         val nuevoPersonaje = Personaje(
