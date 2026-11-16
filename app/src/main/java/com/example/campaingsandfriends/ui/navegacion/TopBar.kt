@@ -13,7 +13,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.campaingsandfriends.R
 import androidx.compose.ui.graphics.Color
-import com.example.campaingsandfriends.model.Personaje
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

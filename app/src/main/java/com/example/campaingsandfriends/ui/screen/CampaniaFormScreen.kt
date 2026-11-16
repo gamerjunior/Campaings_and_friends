@@ -104,8 +104,7 @@ fun CampaniaFormScreen(
 
                     errorNombre = CampaniaFormValidator.validarNombre(nombre)
                     errorMaster = CampaniaFormValidator.validarMaster(master)
-
-                    //Faltan el resto de Validaciones
+                    errorNJugadores = CampaniaFormValidator.validarNjugadores(Njugadores)
 
                     if (errorNombre == null && errorMaster== null && errorNJugadores == null) {
                         onSaveClick(
